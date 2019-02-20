@@ -69,10 +69,26 @@
                 v-card#textbook.main-card.elevation-1(color='grey lighten-5' flat light)
                     v-toolbar(color='orange' flat dark)
                         v-toolbar-side-icon: v-icon mdi-menu
+                        //TODO: move 授課大綱 教師資訊 here, or as an info icon
                         v-toolbar-title.no-select 教材
                         //v-spacer
                         //v-btn(aria-label='search' icon): v-icon mdi-magnify
                     v-list.pa-0(two-line subheader)
+                        template(v-for='(item, index) in TextbookList.list')
+                            v-list(:key='item[0]' :value='index === 0 && Setting.expandFirstFolder' prepend-icon='mdi-folder' append-icon='mdi-chevron-down' v-if='TextbookList.content[index]' )
+                                //- v-list-tile(slot='activator' ripple)
+                                //-     v-list-tile-content
+                                //-         v-list-tile-title {{ item[0] }}
+                                template(v-for='nitem in TextbookList.content[index]')
+                                    v-list-tile(:key='nitem.filename' :title='nitem.filename' :href='nitem.path' target='_blank')
+                                        v-list-tile-action
+                                            v-icon(large) {{ fileType[nitem.ext] || 'mdi-file' }}
+                                        v-list-tile-content
+                                            v-list-tile-title {{ nitem.filename }}
+                                            v-list-tile-sub-title {{ nitem.time.split(' ')[0] }}
+                                    v-divider(v-if='Setting.showDivider')
+                            v-divider(v-if='Setting.showDivider')
+                        v-divider(v-if='Setting.showDivider')
                         v-list-tile(v-if='Setting.showIntro' @click='getIntro')
                             v-list-tile-avatar
                                 v-icon(large) mdi-file-account
@@ -84,21 +100,6 @@
                                 v-icon(large) mdi-file-account
                             v-list-tile-content
                                 v-list-tile-title 教師資訊
-                        v-divider(v-if='Setting.showDivider')
-                        template(v-for='(item, index) in TextbookList.list')
-                            v-list-group(:key='item[0]' :value='index === 0 && Setting.expandFirstFolder' prepend-icon='mdi-folder' append-icon='mdi-chevron-down' v-if='TextbookList.content[index]')
-                                v-list-tile(slot='activator' ripple)
-                                    v-list-tile-content
-                                        v-list-tile-title {{ item[0] }}
-                                template(v-for='nitem in TextbookList.content[index]')
-                                    v-list-tile(:key='nitem.filename' :title='nitem.filename' :href='nitem.path' target='_blank')
-                                        v-list-tile-action
-                                            v-icon(large) {{ fileType[nitem.ext] || 'mdi-file' }}
-                                        v-list-tile-content
-                                            v-list-tile-title {{ nitem.filename }}
-                                            v-list-tile-sub-title {{ nitem.time.split(' ')[0] }}
-                                    v-divider(v-if='Setting.showDivider')
-                            v-divider(v-if='Setting.showDivider')
         transition(:name='isMobile ? "slide-x-transition" : "slide-y-reverse-transition"')
             v-flex.pl-2(xs12 md6 offset-md1 v-if='tag === "score"')
                 v-card#score-card.main-card(color='grey lighten-5' flat :class='{"elevation-1": !Setting.scoreStyle2}' light)
