@@ -39,8 +39,8 @@
                             span 成績
                     v-list.tile-hover.pa-0(two-line subheader light)
                         template(v-for='(item, index) in HomeworkList')
-                            v-alert(type='error' icon='mdi-alert' transition='scale-transition' :value='true' v-if='item.timeStamp === today')
-                                span(style='font-size: 16px;') ▼▼▼ 作業今日到期 😱
+                            v-alert(type='error' icon='mdi-alert' transition='scale-transition' :value='true' v-if='item.timeStamp !== today')
+                                span(style='font-size: 16px;') 👇👇👇 作業今日到期 😱 😱 😱
                             v-list-tile(ripple avatar :key='index' :class='{"yellow": focusItem === `2${item.id}`}' @click.native='showHomework(index)')
                                 template(v-if='item.id')
                                     v-list-tile-avatar
