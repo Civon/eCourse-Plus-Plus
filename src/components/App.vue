@@ -20,7 +20,7 @@
                                 span {{User.department}} | {{User.classes}}
 
             v-list.pt-0.striped.course-list(dense :two-line='isMobile' :three-line='!isMobile' light)
-                v-list-tile
+                v-list-tile(:to='{ name: "table"}' )
                     v-list-tile-action: div
                     v-list-tile-content
                         v-list-tile-title#course-head
