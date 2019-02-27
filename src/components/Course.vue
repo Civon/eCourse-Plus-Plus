@@ -71,8 +71,6 @@
                         v-toolbar-side-icon: v-icon mdi-menu
                         //TODO: move 授課大綱 教師資訊 here, or as an info icon
                         v-toolbar-title.no-select 教材
-                        //v-spacer
-                        //v-btn(aria-label='search' icon): v-icon mdi-magnify
                     v-list.pa-0(two-line subheader)
                         template(v-for='(item, index) in TextbookList.list')
                             v-list(:key='item[0]' :value='index === 0 && Setting.expandFirstFolder' prepend-icon='mdi-folder' append-icon='mdi-chevron-down' v-if='TextbookList.content[index]' )
@@ -95,7 +93,7 @@
                             v-list-tile-content
                                 v-list-tile-title 授課大綱
                         v-divider(v-if='Setting.showDivider')
-                        v-list-tile(v-if='Setting.showTeacherInfo' @click='getTeacherInfo')
+                        v-list-tile.hidden-md-and-up(v-if='Setting.showTeacherInfo' @click='getTeacherInfo')
                             v-list-tile-avatar
                                 v-icon(large) mdi-file-account
                             v-list-tile-content
